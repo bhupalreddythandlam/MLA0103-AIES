@@ -4,10 +4,6 @@ This repository contains lab experiments and implementations for the AIES (Artif
 
 ## Lab Experiments
 
-### Graph Traversal Algorithms
-
-This section covers fundamental graph traversal techniques used in AI and computer science.
-
 #### BFS (Breadth-First Search)
 
 ```
