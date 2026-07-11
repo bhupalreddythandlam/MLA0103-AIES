@@ -50,9 +50,3 @@ END WHILE
 END DFS
 ```
 
-## Files
-
-- `BFS.py` - Python implementation of Breadth-First Search
-- `BFS.txt` - BFS algorithm pseudocode
-- `DFS.py` - Python implementation of Depth-First Search
-- `DFS.txt` - DFS algorithm pseudocode
