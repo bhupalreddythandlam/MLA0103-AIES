@@ -1,10 +1,14 @@
 # MLA0107-AIES
 
-This repository contains implementations and documentation for graph traversal algorithms.
+This repository contains lab experiments and implementations for the AIES (Artificial Intelligence and Expert Systems) course.
 
-## Graph Traversal Algorithms
+## Lab Experiments
 
-### BFS (Breadth-First Search)
+### Graph Traversal Algorithms
+
+This section covers fundamental graph traversal techniques used in AI and computer science.
+
+#### BFS (Breadth-First Search)
 
 ```
 CREATE empty queue Q
@@ -27,7 +31,7 @@ END WHILE
 END BFS
 ```
 
-### DFS (Depth-First Search)
+#### DFS (Depth-First Search)
 
 ```
 CREATE empty stack S
