@@ -1,4 +1,4 @@
-# MLA0107-AIES
+# MLA0103-AIES
 
 This repository contains lab experiments and implementations for the AIES (Artificial Intelligence and Expert Systems) course.
 
