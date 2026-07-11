@@ -1,0 +1,18 @@
+CREATE empty stack S
+CREATE empty set Visited
+
+PUSH StartNode into S
+
+WHILE S is not empty DO
+    CurrentNode ← POP S
+    
+    IF CurrentNode not in Visited THEN
+        VISIT CurrentNode
+        ADD CurrentNode to Visited
+
+        FOR each Neighbor of CurrentNode in Graph DO
+            PUSH Neighbor into S
+        END FOR
+    END IF
+END WHILE
+END DFS
