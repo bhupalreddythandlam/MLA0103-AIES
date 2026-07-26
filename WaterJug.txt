@@ -1,0 +1,31 @@
+PROMPT User for Jug1_Cap, Jug2_Cap, Target
+
+CREATE empty queue Q
+CREATE empty set Visited
+
+ENQUEUE (0, 0) into Q
+
+WHILE Q is not empty DO
+    (A, B) ← DEQUEUE Q
+    
+    IF (A, B) not in Visited THEN
+        VISIT (A, B)
+        ADD (A, B) to Visited
+        
+        IF A == Target OR B == Target THEN
+            STOP SEARCH
+        END IF
+        
+        CREATE NextStates containing:
+            Fill actions: (Jug1_Cap, B), (A, Jug2_Cap)
+            Empty actions: (0, B), (A, 0)
+            Pour actions: Math for transferring water until full/empty
+            
+        FOR each State in NextStates DO
+            IF State not in Visited THEN
+                ENQUEUE State into Q
+            END IF
+        END FOR
+    END IF
+END WHILE
+END WATER_JUG

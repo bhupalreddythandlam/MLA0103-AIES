@@ -1,0 +1,29 @@
+FUNCTION AlphaBeta(Depth, NodeIndex, IsMax, Scores, TargetDepth, Alpha, Beta)
+    IF Depth == TargetDepth THEN
+        RETURN Scores[NodeIndex]
+    END IF
+
+    IF IsMax is TRUE THEN
+        Best ← -INFINITY
+        FOR each Child of Node DO
+            Val ← AlphaBeta(Depth + 1, ChildIndex, FALSE, Scores, TargetDepth, Alpha, Beta)
+            Best ← MAXIMUM(Best, Val)
+            Alpha ← MAXIMUM(Alpha, Best)
+            IF Beta <= Alpha THEN
+                BREAK
+            END IF
+        END FOR
+        RETURN Best
+    ELSE
+        Best ← +INFINITY
+        FOR each Child of Node DO
+            Val ← AlphaBeta(Depth + 1, ChildIndex, TRUE, Scores, TargetDepth, Alpha, Beta)
+            Best ← MINIMUM(Best, Val)
+            Beta ← MINIMUM(Beta, Best)
+            IF Beta <= Alpha THEN
+                BREAK
+            END IF
+        END FOR
+        RETURN Best
+    END IF
+END FUNCTION

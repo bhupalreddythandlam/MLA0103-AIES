@@ -1,0 +1,21 @@
+CREATE empty priority queue PQ
+CREATE empty set Visited
+
+ENQUEUE (0, StartNode) into PQ
+
+WHILE PQ is not empty DO
+    Cost, CurrentNode ← DEQUEUE_MIN PQ
+    
+    IF CurrentNode not in Visited THEN
+        VISIT CurrentNode
+        ADD CurrentNode to Visited
+
+        FOR each (Neighbor, EdgeCost) of CurrentNode in Graph DO
+            IF Neighbor not in Visited THEN
+                TotalCost ← Cost + EdgeCost
+                ENQUEUE (TotalCost, Neighbor) into PQ
+            END IF
+        END FOR
+    END IF
+END WHILE
+END UCS

@@ -1,0 +1,15 @@
+FUNCTION MinMax(Depth, NodeIndex, IsMax, Scores, TargetDepth)
+    IF Depth == TargetDepth THEN
+        RETURN Scores[NodeIndex]
+    END IF
+
+    IF IsMax is TRUE THEN
+        LeftChild ← MinMax(Depth + 1, NodeIndex * 2, FALSE, Scores, TargetDepth)
+        RightChild ← MinMax(Depth + 1, NodeIndex * 2 + 1, FALSE, Scores, TargetDepth)
+        RETURN MAXIMUM(LeftChild, RightChild)
+    ELSE
+        LeftChild ← MinMax(Depth + 1, NodeIndex * 2, TRUE, Scores, TargetDepth)
+        RightChild ← MinMax(Depth + 1, NodeIndex * 2 + 1, TRUE, Scores, TargetDepth)
+        RETURN MINIMUM(LeftChild, RightChild)
+    END IF
+END FUNCTION

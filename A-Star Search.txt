@@ -1,0 +1,27 @@
+CREATE empty priority queue PQ
+CREATE empty set Visited
+
+Calculate F = G(StartNode) + H(StartNode)
+ENQUEUE (F, G, StartNode) into PQ
+
+WHILE PQ is not empty DO
+    F, G, CurrentNode ← DEQUEUE_MIN PQ
+    
+    IF CurrentNode not in Visited THEN
+        VISIT CurrentNode
+        ADD CurrentNode to Visited
+        
+        IF CurrentNode is Goal THEN
+            STOP SEARCH
+        END IF
+
+        FOR each (Neighbor, EdgeCost) of CurrentNode DO
+            IF Neighbor not in Visited THEN
+                New_G ← G + EdgeCost
+                New_F ← New_G + H(Neighbor)
+                ENQUEUE (New_F, New_G, Neighbor) into PQ
+            END IF
+        END FOR
+    END IF
+END WHILE
+END A_STAR

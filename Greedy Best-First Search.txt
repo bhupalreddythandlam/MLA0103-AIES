@@ -1,0 +1,24 @@
+CREATE empty priority queue PQ
+CREATE empty set Visited
+
+ENQUEUE (H(StartNode), StartNode) into PQ
+
+WHILE PQ is not empty DO
+    H_Cost, CurrentNode ← DEQUEUE_MIN PQ
+    
+    IF CurrentNode not in Visited THEN
+        VISIT CurrentNode
+        ADD CurrentNode to Visited
+        
+        IF CurrentNode is Goal THEN
+            STOP SEARCH
+        END IF
+
+        FOR each Neighbor of CurrentNode DO
+            IF Neighbor not in Visited THEN
+                ENQUEUE (H(Neighbor), Neighbor) into PQ
+            END IF
+        END FOR
+    END IF
+END WHILE
+END GREEDY_BFS
