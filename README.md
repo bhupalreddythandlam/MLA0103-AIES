@@ -227,3 +227,127 @@ FUNCTION AlphaBeta(Depth, NodeIndex, IsMax, Scores, TargetDepth, Alpha, Beta)
 END FUNCTION
 ```
 
+#### N-Queens Problem
+
+```
+DEFINE function IsSafe(board, row, col)
+    FOR each previousRow FROM 0 TO row - 1 DO
+        IF board[previousRow] == col OR ABS(board[previousRow] - col) == ABS(previousRow - row) THEN
+            RETURN false
+        END IF
+    END FOR
+    RETURN true
+END FUNCTION
+
+DEFINE function SolveNQueens(n)
+    INITIALIZE board as array of size n with -1
+    INITIALIZE solutions as empty list
+
+    DEFINE function PlaceQueen(row)
+        IF row == n THEN
+            ADD copy of board to solutions
+            RETURN
+        END IF
+
+        FOR col FROM 0 TO n - 1 DO
+            IF IsSafe(board, row, col) THEN
+                board[row] = col
+                PlaceQueen(row + 1)
+                board[row] = -1
+            END IF
+        END FOR
+    END FUNCTION
+
+    PlaceQueen(0)
+    RETURN solutions
+END FUNCTION
+```
+
+#### Cryptarithmetic Problem
+
+```
+DEFINE function ToNumber(word, mapping)
+    SET numberString = EMPTY STRING
+    FOR each letter in word DO
+        APPEND mapping[letter] to numberString
+    END FOR
+    RETURN integer value of numberString
+END FUNCTION
+
+DEFINE function SolveCryptarithmetic(words, result)
+    SET uniqueLetters = set of all letters in words and result
+    IF size of uniqueLetters > 10 THEN
+        RETURN empty list
+    END IF
+
+    SET letters = list of uniqueLetters
+    SET firstLetters = set of first letters of each word and result
+    SET solutions = empty list
+
+    DEFINE function Backtrack(index, mapping, usedDigits)
+        IF index == size of letters THEN
+            SET values = map each word through ToNumber(word, mapping)
+            IF sum(values) == ToNumber(result, mapping) THEN
+                ADD copy of mapping to solutions
+            END IF
+            RETURN
+        END IF
+
+        SET letter = letters[index]
+        FOR digit FROM 0 TO 9 DO
+            IF digit in usedDigits THEN
+                CONTINUE
+            END IF
+            IF digit == 0 AND letter in firstLetters THEN
+                CONTINUE
+            END IF
+            SET mapping[letter] = digit
+            ADD digit to usedDigits
+            Backtrack(index + 1, mapping, usedDigits)
+            REMOVE digit from usedDigits
+            REMOVE letter from mapping
+        END FOR
+    END FUNCTION
+
+    Backtrack(0, empty mapping, empty set)
+    RETURN solutions
+END FUNCTION
+```
+
+#### Map Coloring Problem
+
+```
+DEFINE function IsValid(coloring, node, color, graph)
+    FOR each neighbor in graph[node] DO
+        IF neighbor in coloring AND coloring[neighbor] == color THEN
+            RETURN false
+        END IF
+    END FOR
+    RETURN true
+END FUNCTION
+
+DEFINE function SolveMapColoring(graph, colors)
+    SET nodes = list of graph keys
+    SET coloring = empty mapping
+    SET solutions = empty list
+
+    DEFINE function Assign(index)
+        IF index == size of nodes THEN
+            ADD copy of coloring to solutions
+            RETURN
+        END IF
+
+        SET node = nodes[index]
+        FOR each color in colors DO
+            IF IsValid(coloring, node, color, graph) THEN
+                SET coloring[node] = color
+                Assign(index + 1)
+                REMOVE node from coloring
+            END IF
+        END FOR
+    END FUNCTION
+
+    Assign(0)
+    RETURN solutions
+END FUNCTION
+```

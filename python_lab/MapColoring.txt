@@ -1,0 +1,40 @@
+DEFINE function IsValid(coloring, node, color, graph)
+    FOR each neighbor in graph[node] DO
+        IF neighbor in coloring AND coloring[neighbor] == color THEN
+            RETURN false
+        END IF
+    END FOR
+    RETURN true
+END FUNCTION
+
+DEFINE function SolveMapColoring(graph, colors)
+    SET nodes = list of graph keys
+    SET coloring = empty mapping
+    SET solutions = empty list
+
+    DEFINE function Assign(index)
+        IF index == size of nodes THEN
+            ADD copy of coloring to solutions
+            RETURN
+        END IF
+
+        SET node = nodes[index]
+        FOR each color in colors DO
+            IF IsValid(coloring, node, color, graph) THEN
+                SET coloring[node] = color
+                Assign(index + 1)
+                REMOVE node from coloring
+            END IF
+        END FOR
+    END FUNCTION
+
+    Assign(0)
+    RETURN solutions
+END FUNCTION
+
+MAIN
+    DEFINE graph with nodes and adjacency
+    DEFINE colors = ["Red", "Green", "Blue"]
+    SET solutions = SolveMapColoring(graph, colors)
+    PRINT number of solutions
+END MAIN

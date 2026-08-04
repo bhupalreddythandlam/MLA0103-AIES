@@ -1,0 +1,53 @@
+DEFINE function ToNumber(word, mapping)
+    SET numberString = EMPTY STRING
+    FOR each letter in word DO
+        APPEND mapping[letter] to numberString
+    END FOR
+    RETURN integer value of numberString
+END FUNCTION
+
+DEFINE function SolveCryptarithmetic(words, result)
+    SET uniqueLetters = set of all letters in words and result
+    IF size of uniqueLetters > 10 THEN
+        RETURN empty list
+    END IF
+
+    SET letters = list of uniqueLetters
+    SET firstLetters = set of first letters of each word and result
+    SET solutions = empty list
+
+    DEFINE function Backtrack(index, mapping, usedDigits)
+        IF index == size of letters THEN
+            SET values = map each word through ToNumber(word, mapping)
+            IF sum(values) == ToNumber(result, mapping) THEN
+                ADD copy of mapping to solutions
+            END IF
+            RETURN
+        END IF
+
+        SET letter = letters[index]
+        FOR digit FROM 0 TO 9 DO
+            IF digit in usedDigits THEN
+                CONTINUE
+            END IF
+            IF digit == 0 AND letter in firstLetters THEN
+                CONTINUE
+            END IF
+            SET mapping[letter] = digit
+            ADD digit to usedDigits
+            Backtrack(index + 1, mapping, usedDigits)
+            REMOVE digit from usedDigits
+            REMOVE letter from mapping
+        END FOR
+    END FUNCTION
+
+    Backtrack(0, empty mapping, empty set)
+    RETURN solutions
+END FUNCTION
+
+MAIN
+    SET words = ["SEND", "MORE"]
+    SET result = "MONEY"
+    SET solutions = SolveCryptarithmetic(words, result)
+    PRINT number of solutions
+END MAIN

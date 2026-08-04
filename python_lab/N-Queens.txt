@@ -1,0 +1,37 @@
+DEFINE function IsSafe(board, row, col)
+    FOR each previousRow FROM 0 TO row - 1 DO
+        IF board[previousRow] == col OR ABS(board[previousRow] - col) == ABS(previousRow - row) THEN
+            RETURN false
+        END IF
+    END FOR
+    RETURN true
+END FUNCTION
+
+DEFINE function SolveNQueens(n)
+    INITIALIZE board as array of size n with -1
+    INITIALIZE solutions as empty list
+
+    DEFINE function PlaceQueen(row)
+        IF row == n THEN
+            ADD copy of board to solutions
+            RETURN
+        END IF
+
+        FOR col FROM 0 TO n - 1 DO
+            IF IsSafe(board, row, col) THEN
+                board[row] = col
+                PlaceQueen(row + 1)
+                board[row] = -1
+            END IF
+        END FOR
+    END FUNCTION
+
+    PlaceQueen(0)
+    RETURN solutions
+END FUNCTION
+
+MAIN
+    SET n = 8
+    SET solutions = SolveNQueens(n)
+    PRINT number of solutions
+END MAIN
