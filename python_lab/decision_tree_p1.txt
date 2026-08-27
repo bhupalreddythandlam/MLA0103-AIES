@@ -1,0 +1,19 @@
+IMPORT pandas
+IMPORT DecisionTreeClassifier and plot_tree from sklearn.tree
+IMPORT matplotlib.pyplot
+
+CREATE dataset containing Outlook, Temp, Humidity, Wind, and Play columns
+CONVERT dataset into a pandas DataFrame
+
+SELECT Outlook, Temp, Humidity, and Wind as input features X
+SELECT Play as target y
+
+CONVERT categorical input features into one-hot encoded columns
+
+CREATE DecisionTreeClassifier using entropy as the splitting criterion
+TRAIN the model using X and y
+
+CALCULATE and DISPLAY training accuracy
+CREATE a figure for the tree visualization
+PLOT the trained decision tree with feature names and class names
+DISPLAY the tree visualization

@@ -1,0 +1,48 @@
+IMPORT math
+
+CREATE dataset with record number, A1, A2, A3, and class label
+DEFINE feature names for A1, A2, and A3
+
+FUNCTION Entropy(dataset)
+    COUNT the occurrences of each class label
+    CALCULATE each class probability
+    RETURN the sum of -probability * log2(probability)
+END FUNCTION
+
+FUNCTION InformationGain(dataset, feature)
+    CALCULATE entropy of the complete dataset
+    FIND all unique values of the feature
+    SET weighted entropy to zero
+
+    FOR each feature value DO
+        CREATE a subset containing rows with that value
+        ADD subset proportion * Entropy(subset) to weighted entropy
+    END FOR
+
+    RETURN complete entropy - weighted entropy
+END FUNCTION
+
+FUNCTION BuildTree(dataset, available features)
+    IF all class labels are equal THEN
+        RETURN that class label
+    END IF
+
+    IF no features remain THEN
+        RETURN the most common class label
+    END IF
+
+    SELECT the feature with maximum InformationGain
+    CREATE a tree node for the selected feature
+
+    FOR each value of the selected feature DO
+        CREATE the matching subset
+        RECURSIVELY build a subtree using the remaining features
+        STORE the subtree under that value
+    END FOR
+
+    RETURN the tree node
+END FUNCTION
+
+SET features to A1, A2, and A3
+BUILD the decision tree from the dataset
+DISPLAY the decision tree

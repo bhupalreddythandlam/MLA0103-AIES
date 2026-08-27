@@ -351,3 +351,103 @@ DEFINE function SolveMapColoring(graph, colors)
     RETURN solutions
 END FUNCTION
 ```
+
+#### Decision Tree - Problem 1
+
+```
+IMPORT pandas
+IMPORT DecisionTreeClassifier and plot_tree from sklearn.tree
+IMPORT matplotlib.pyplot
+
+CREATE dataset containing Outlook, Temp, Humidity, Wind, and Play columns
+CONVERT dataset into a pandas DataFrame
+
+SELECT Outlook, Temp, Humidity, and Wind as input features X
+SELECT Play as target y
+CONVERT categorical input features into one-hot encoded columns
+
+CREATE DecisionTreeClassifier using entropy as the splitting criterion
+TRAIN the model using X and y
+CALCULATE and DISPLAY training accuracy
+PLOT the trained decision tree with feature names and class names
+DISPLAY the tree visualization
+```
+
+#### Decision Tree - Problem 2
+
+```
+IMPORT math
+CREATE dataset with record number, A1, A2, A3, and class label
+
+FUNCTION Entropy(dataset)
+    COUNT the occurrences of each class label
+    CALCULATE each class probability
+    RETURN the sum of -probability * log2(probability)
+END FUNCTION
+
+FUNCTION InformationGain(dataset, feature)
+    CALCULATE entropy of the complete dataset
+    FOR each unique feature value DO
+        CREATE the matching subset
+        ADD subset proportion * Entropy(subset) to weighted entropy
+    END FOR
+    RETURN complete entropy - weighted entropy
+END FUNCTION
+
+FUNCTION BuildTree(dataset, available features)
+    IF all class labels are equal THEN
+        RETURN that class label
+    END IF
+    IF no features remain THEN
+        RETURN the most common class label
+    END IF
+    SELECT the feature with maximum InformationGain
+    FOR each value of the selected feature DO
+        RECURSIVELY build a subtree using the matching subset
+    END FOR
+    RETURN the decision tree
+END FUNCTION
+
+SET features to A1, A2, and A3
+BUILD and DISPLAY the decision tree
+```
+
+#### Decision Tree - Problem 3
+
+```
+IMPORT math
+CREATE dataset with record number, A1, A2, and class label
+
+FUNCTION Entropy(dataset)
+    COUNT the occurrences of each class label
+    CALCULATE each class probability
+    RETURN the sum of -probability * log2(probability)
+END FUNCTION
+
+FUNCTION InformationGain(dataset, feature)
+    CALCULATE entropy of the complete dataset
+    FOR each unique feature value DO
+        CREATE the matching subset
+        ADD subset proportion * Entropy(subset) to weighted entropy
+    END FOR
+    RETURN complete entropy - weighted entropy
+END FUNCTION
+
+FUNCTION BuildTree(dataset, available features)
+    IF all class labels are equal THEN
+        RETURN that class label
+    END IF
+    IF no features remain THEN
+        RETURN the most common class label
+    END IF
+    SELECT the feature with maximum InformationGain
+    FOR each value of the selected feature DO
+        RECURSIVELY build a subtree using the matching subset
+    END FOR
+    RETURN the decision tree
+END FUNCTION
+
+SET features to A1 and A2
+CALCULATE and DISPLAY information gain for each feature
+BUILD and DISPLAY the decision tree
+```
